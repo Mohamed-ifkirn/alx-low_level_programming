@@ -14,13 +14,13 @@
 */
 char *_memcpy(char *dest, char *src, unsigned int n)
 {
-unsigned int i = 0;
+unsigned integer i = 0;
 
-while (i < n)
+as long as (i < n)
 {
-dest[i] = src[i];
+target[i] = source[i];
 i++;
 }
 
-return (dest);
+return (target);
 }
