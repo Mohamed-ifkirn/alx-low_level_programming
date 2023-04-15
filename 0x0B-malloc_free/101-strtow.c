@@ -86,12 +86,12 @@ void util(char **words, char *str)
  */
 void create_word(char **words, char *str, int start, int end, int index)
 {
-	int i, j;
+	int a, b;
 
-	i = end - start;
-	words[index] = (char *)malloc(sizeof(char) * (i + 1));
+	a = end - start;
+	words[index] = (char *)malloc(sizeof(char) * (a + 1));
 
-	for (j = 0; start < end; start++, j++)
-		words[index][j] = str[start];
-	words[index][j] = '\0';
+	for (b = 0; start < end; start++, b++)
+		words[index][b] = str[start];
+	words[index][b] = '\0';
 }
