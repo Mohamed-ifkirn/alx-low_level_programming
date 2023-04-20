@@ -9,16 +9,16 @@
  */
 void _print(char *str, int l)
 {
-	int i, j;
+	int a, b;
 
-	i = j = 0;
-	while (i < l)
+	a = b = 0;
+	while (a < l)
 	{
-		if (str[i] != '0')
-			j = 1;
-		if (j || i == l - 1)
-			_putchar(str[i]);
-		i++;
+		if (str[a] != '0')
+			b = 1;
+		if (b || a == l - 1)
+			_putchar(str[a]);
+		a++;
 	}
 
 	_putchar('\n');
@@ -37,12 +37,12 @@ void _print(char *str, int l)
  */
 char *mul(char n, char *num, int num_index, char *dest, int dest_index)
 {
-	int j, k, mul, mulrem, add, addrem;
+	int b, k, mul, mulrem, add, addrem;
 
 	mulrem = addrem = 0;
-	for (j = num_index, k = dest_index; j >= 0; j--, k--)
+	for (b = num_index, k = dest_index; b >= 0; b--, k--)
 	{
-		mul = (n - '0') * (num[j] - '0') + mulrem;
+		mul = (n - '0') * (num[b] - '0') + mulrem;
 		mulrem = mul / 10;
 		add = (dest[k] - '0') + (mul % 10) + addrem;
 		addrem = add / 10;
@@ -69,13 +69,13 @@ char *mul(char n, char *num, int num_index, char *dest, int dest_index)
  */
 int check_for_digits(char **av)
 {
-	int i, j;
+	int a, b;
 
-	for (i = 1; i < 3; i++)
+	for (a = 1; a < 3; a++)
 	{
-		for (j = 0; av[i][j]; j++)
+		for (b = 0; av[a][b]; b++)
 		{
-			if (av[i][j] < '0' || av[i][j] > '9')
+			if (av[a][b] < '0' || av[a][b] > '9')
 				return (1);
 		}
 	}
@@ -91,11 +91,11 @@ int check_for_digits(char **av)
  */
 void init(char *str, int l)
 {
-	int i;
+	int a;
 
-	for (i = 0; i < l; i++)
-		str[i] = '0';
-	str[i] = '\0';
+	for (a = 0; a < l; a++)
+		str[a] = '0';
+	str[a] = '\0';
 }
 
 /**
@@ -109,14 +109,14 @@ void init(char *str, int l)
 int main(int argc, char *argv[])
 {
 	int l1, l2, ln, ti, i;
-	char *a;
+	char *s;
 	char *t;
 	char e[] = "Error\n";
 
 	if (argc != 3 || check_for_digits(argv))
 	{
-		for (ti = 0; e[ti]; ti++)
-			_putchar(e[ti]);
+		for (ta = 0; e[ta]; ta++)
+			_putchar(e[ta]);
 		exit(98);
 	}
 	for (l1 = 0; argv[1][l1]; l1++)
@@ -124,25 +124,25 @@ int main(int argc, char *argv[])
 	for (l2 = 0; argv[2][l2]; l2++)
 		;
 	ln = l1 + l2 + 1;
-	a = malloc(ln * sizeof(char));
-	if (a == NULL)
+	s = malloc(ln * sizeof(char));
+	if (s == NULL)
 	{
-		for (ti = 0; e[ti]; ti++)
-			_putchar(e[ti]);
+		for (ta = 0; e[ta]; ta++)
+			_putchar(e[ta]);
 		exit(98);
 	}
-	init(a, ln - 1);
-	for (ti = l2 - 1, i = 0; ti >= 0; ti--, i++)
+	init(s, ln - 1);
+	for (ta = l2 - 1, a = 0; ta >= 0; ta--, a++)
 	{
-		t = mul(argv[2][ti], argv[1], l1 - 1, a, (ln - 2) - i);
+		t = mul(argv[2][ta], argv[1], l1 - 1, s, (ln - 2) - a);
 		if (t == NULL)
 		{
-			for (ti = 0; e[ti]; ti++)
-				_putchar(e[ti]);
-			free(a);
+			for (ta = 0; e[ta]; ta++)
+				_putchar(e[ta]);
+			free(s);
 			exit(98);
 		}
 	}
-	_print(a, ln - 1);
+	_print(s, ln - 1);
 	return (0);
 }
