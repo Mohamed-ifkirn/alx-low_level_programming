@@ -1,13 +1,11 @@
-include <stdarg.h>
-#include <stdio.h>
 #include "variadic_functions.h"
 
 /**
- * print_c - print a char
- * @c: char to print
- *
+ * print_all - Prints all of the arguments when specified
+ * @format: specifies the necessary operations
  * Return: void
  */
+
 void print_all(const char * const format, ...)
 {
 	int i;
