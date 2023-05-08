@@ -1,53 +1,39 @@
 #include "main.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
- * read_textfile - Reads up to `letters` bytes from file `filename`
- *                and prints them to standard output.
- * @filename: A pointer to the name of the file to read.
- * @letters: The maximum number o to read.
+ * read_textfile - ...
+ * @filename: A pointer to the name of the file.
+ * @letters: The number of letters the
+ *           function should read and print.
  *
- * Return: The number to read and printed,
+ * Return: If the function fails or filename is NULL - 0.
+ *         O/w - the actual number of bytes the function can read and print.
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int fd;
-	ssize_t readen_, written;
-	char *buf;
+	ssize_t r, o, w;
+	char *buffer;
 
 	if (filename == NULL)
 	return (0);
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+	buffer = malloc(sizeof(char) * letters);
+	if (buffer == NULL)
 	return (0);
 
-	buf = malloc(letters);
-	if (buf == NULL)
+	o = open(filename, O_RDONLY);
+	r = read(o, buffer, letters);
+	w = write(STDOUT_FILENO, buffer, r);
+
+	if (o == -1 || r == -1 || w == -1 || w != r)
 	{
-	close(fd);
+	free(buffer);
 	return (0);
 	}
 
-	readen_ = read(fd, buf, letters);
-	if (readen_ == -1)
-	{
-	free(buf);
-	close(fd);
-	return (0);
-	}
+	free(buffer);
+	close(o);
 
-	written = fwrite(buf, sizeof(char), readen_, stdout);
-	if (written != readen_)
-	{
-	free(buf);
-	close(fd);
-	return (0);
-	}
-
-	free(buf);
-	close(fd);
-
-	return (written);
+	return (w);
 }
